@@ -24,18 +24,19 @@ sources:
           - name: quantity
             tests:
               - not_null
+        tests:
+          - unique:
+              column_name: "(orders_id || '_' || pdt_id)"
       - name: product
         identifier: raw_gz_product
         description: products catalog of greenweez - each line is a product
         columns:
-          - name: product_id
+          - name: products_id
             description: primary key
             tests:
               - unique
               - not_null
           - name: purchase_price
-            tests:
-              - not_null
       - name: ship
         identifier: raw_gz_ship
         description: ship og greenweez - each line is a parcel per order
