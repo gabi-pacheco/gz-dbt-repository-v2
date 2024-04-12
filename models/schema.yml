@@ -55,3 +55,106 @@ sources:
           - name: ship_cost
             tests:
               - not_null
+
+models:
+      - name: stg_raw_product
+        description: cleaning of product table cointaing product catalogue
+
+      - name: stg_raw_sales
+        description: cleaning of sales table containing all orders
+
+      - name: stg_raw_ship
+        description: cleaning of shippment table, containing all parcels
+
+      - name: int_sales_margin
+        description: margin calcultation
+        tests:
+        - unique:
+            column_name: "(orders_id || '-' || products_id)"
+        - not_null:
+            column_name:
+              - products_id
+              - date_date
+              - orders_id
+              - revenue
+              - quantity
+              - purchase_price
+              - purchase_cost
+              - margin
+
+      - name: int_orders_margin
+        description: margin calcultation per order 
+        columns:
+          - name: orders_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: date_date
+            description: date client placed order
+            test:
+              - not_null
+          - name: revenue
+            description: revenue from order
+            test:
+              - not_null
+          - name: quantity 
+            description: quantity of items purchased per order
+            test:
+              - not_null 
+          - name: purchase_cost
+            description: cost of each product per order
+            test:
+              - not_null
+          - name: margin
+            description: revenue minus costs
+            test:
+              - not_null 
+
+      - name: int_orders_operational
+        description: operational margin calcultation per order 
+        columns:
+            - name: orders_id
+              description: unique identifier of each order
+              tests:
+                - unique
+                - not_null
+            - name: date_date
+              description: date client placed order
+              test:
+                - not_null
+            - name: revenue
+              description: revenue from order
+              test:
+                - not_null
+            - name: quantity
+              description: quantity of items purchased
+              test:
+                - not_null
+            - name: purchase_cost
+              description: Purchase_cost = Quantity * Purchase_price
+              test:
+                - not_null
+            - name: margin
+              description: Margin = Revenue - Purchase_cost
+              test:
+                - not_null
+            - name: operational_margin
+              description: margin + shipping fee - log_cost - ship_cost
+              test:
+                - not_null
+            - name: ship_cost
+              description: cost paid by company for shipping per order 
+              test:
+                - not_null
+            - name: shipping_fee
+              description: priced paid by client for shipping per order
+              test:
+                - not_null
+            - name: logcost
+              description: logistics cost for the company per order
+              test:
+                - not_null
+
+      - name: finance_days
+        description: finance calculation per days
