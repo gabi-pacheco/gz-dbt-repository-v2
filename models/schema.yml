@@ -6,7 +6,51 @@ sources:
     tables:
       - name: sales
         identifier: raw_gz_sales
+        description: sales of greenweez 
+        columns:
+          - name: date_date
+            description: date of purchase
+            tests:
+              - not_null
+          - name: orders_id
+            tests:
+              - not_null 
+          - name: pdt_id
+            tests:
+              - not_null
+          - name: revenue
+            tests:
+              - not_null
+          - name: quantity
+            tests:
+              - not_null
       - name: product
         identifier: raw_gz_product
+        description: products catalog of greenweez - each line is a product
+        columns:
+          - name: product_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: purchase_price
+            tests:
+              - not_null
       - name: ship
         identifier: raw_gz_ship
+        description: ship og greenweez - each line is a parcel per order
+        columns:
+          - name: orders_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: shipping_fee
+            tests:
+              - not_null
+          - name: logcost
+            tests:
+              - not_null
+          - name: ship_cost
+            tests:
+              - not_null
