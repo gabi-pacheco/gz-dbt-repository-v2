@@ -318,3 +318,16 @@ models:
 
       - name: finance_days
         description: finance calculation per days
+
+      - name: finance_campaigns_day
+        description: finance calculation per day plus marketing campaigns costs
+        columns:
+          - name: date_date
+            tests:
+              - unique
+              - not_null
+          - name: ads_cost
+          - name: margin
+          - name: average_basket
+          - name: operational_margin
+          - name: ads_margin
