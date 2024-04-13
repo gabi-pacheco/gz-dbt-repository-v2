@@ -55,6 +55,111 @@ sources:
           - name: ship_cost
             tests:
               - not_null
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: adwords campaign for greenweez
+        columns:
+          - name: date_date
+            tests:
+              - not_null
+          - name: paid_source
+            tests:
+              - not_null
+          - name: campaign_key
+            tests:
+              - not_null
+          - name: campaign_name
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
+
+      - name: bing
+        identifier: raw_gz_bing
+        description: bing campaign for greenweez
+        columns:
+          - name: date_date
+            tests:
+              - not_null
+          - name: paid_source
+            tests:
+              - not_null
+          - name: campaign_key
+            tests:
+              - not_null
+          - name: campaign_name
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: criteo campaign for greenweez
+        columns:
+          - name: date_date
+            tests:
+              - not_null
+          - name: paid_source
+            tests:
+              - not_null
+          - name: campaign_key
+            tests:
+              - not_null
+          - name: campaign_name
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: facebook campaign for greenweez
+        columns:
+          - name: date_date
+            tests:
+              - not_null
+          - name: paid_source
+            tests:
+              - not_null
+          - name: campaign_key
+            tests:
+              - not_null
+          - name: campaign_name
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
 
 models:
       - name: stg_raw_product
@@ -65,6 +170,18 @@ models:
 
       - name: stg_raw_ship
         description: cleaning of shippment table, containing all parcels
+
+      - name: stg_raw__adwords
+        description: adwords greenweez campain
+
+      - name: stg_raw__bing
+        description: bing greenweez campain
+
+      - name: stg_raw__criteo
+        description: criteo greenweez campain
+
+      - name: stg_raw__facebook
+        description: facebook greenweez campain
 
       - name: int_sales_margin
         description: margin calcultation
@@ -155,6 +272,75 @@ models:
               description: logistics cost for the company per order
               test:
                 - not_null
+          
+      - name: int_campaigns
+        description: integration of all campaigns
+        columns:
+          - name: date_date
+            tests:
+              - not_null
+          - name: paid_source
+            tests:
+              - not_null
+          - name: campaign_key
+            tests:
+              - not_null
+          - name: campaign_name
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
+
+      - name: int_campaigns_days
+        description: integration of all campaigns grouped by day
+        columns:
+          - name: date_date
+            tests:
+              - unique
+              - not_null
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
 
       - name: finance_days
         description: finance calculation per days
+
+      - name: finance_campaigns_day
+        description: finance calculation per day plus marketing campaigns costs
+        columns:
+          - name: date_date
+            tests:
+              - unique
+              - not_null
+          - name: ads_cost
+          - name: margin
+          - name: average_basket
+          - name: operational_margin
+          - name: ads_margin
+
+      - name: finance_campaigns_month
+        description: finance calculation per month plus marketing campaigns costs
+        columns:
+          - name: date_month
+            tests:
+              - unique
+              - not_null
+          - name: ads_margin
+          - name: margin
+          - name: average_basket
+          - name: operational_margin
+          - name: ads_cost
