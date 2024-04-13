@@ -299,5 +299,22 @@ models:
           - unique:
               column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
 
+      - name: int_campaigns_days
+        description: integration of all campaigns grouped by day
+        columns:
+          - name: date_date
+            tests:
+              - unique
+              - not_null
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+
       - name: finance_days
         description: finance calculation per days
