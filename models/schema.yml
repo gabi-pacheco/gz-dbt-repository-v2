@@ -331,3 +331,16 @@ models:
           - name: average_basket
           - name: operational_margin
           - name: ads_margin
+
+      - name: finance_campaigns_month
+        description: finance calculation per month plus marketing campaigns costs
+        columns:
+          - name: date_month
+            tests:
+              - unique
+              - not_null
+          - name: ads_margin
+          - name: margin
+          - name: average_basket
+          - name: operational_margin
+          - name: ads_cost
