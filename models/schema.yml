@@ -299,7 +299,7 @@ models:
           - unique:
               column_name: "(date_date || '_' || paid_source || '_' || campaign_key)"
 
-      - name: int_campaigns_days
+      - name: int_campaigns_day
         description: integration of all campaigns grouped by day
         columns:
           - name: date_date
